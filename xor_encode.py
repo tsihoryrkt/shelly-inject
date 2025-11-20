@@ -1,5 +1,16 @@
 import argparse
 
+def print_art():
+    ascii_art = """
+    ██╗  ██╗ ██████╗ ██████╗ ███████╗██████╗ 
+    ╚██╗██╔╝██╔═████╗██╔══██╗██╔════╝██╔══██╗
+     ╚███╔╝ ██║██╔██║██████╔╝█████╗  ██║  ██║
+     ██╔██╗ ████╔╝██║██╔══██╗██╔══╝  ██║  ██║
+    ██╔╝ ██╗╚██████╔╝██║  ██║███████╗██████╔╝
+    ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝                                              
+    """
+    print(ascii_art)
+
 def main():
     parser = argparse.ArgumentParser(description = "XOR encrypt/decrypt")
     parser.add_argument(
@@ -32,4 +43,5 @@ def main():
     print(f"Output written to: {args.out}")
 
 if __name__ == "__main__":
+    print_art()
     main()
